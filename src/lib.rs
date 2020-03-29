@@ -20,7 +20,6 @@ use proc_macro::TokenStream;
 use quote::{quote, quote_spanned};
 use syn::parse::{Parse, ParseStream, Result};
 use syn::spanned::Spanned;
-use syn::token::Token;
 use syn::{parse_macro_input, Expr, Ident, Token, Type, Visibility};
 
 struct LazyStatic {
@@ -111,6 +110,7 @@ pub fn lazy(attr: TokenStream, item: TokenStream) -> TokenStream {
     };
 
     let expanded = quote! {
+        #[allow(non_camel_case_types)]
         #visibility struct #name;
 
         impl std::ops::Deref for #name {
